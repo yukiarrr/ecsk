@@ -1,0 +1,32 @@
+env:
+  - GO111MODULE=on
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - main: ./cmd/ecsk
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X github.com/yukiarrr/ecsk/pkg/cmd.Version={{.Version}} -X github.com/yukiarrr/ecsk/pkg/cmd.Revision={{.ShortCommit}}
+archives:
+  - name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+    format_overrides:
+    - goos: windows
+      format: zip
+brews:
+  - tap:
+      owner: yukiarrr
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    folder: Formula
+    homepage: "https://github.com/yukiarrr/ecsk"
+    description: "ecsk is a CLI tool to interactively use frequently used functions of docker command in Amazon ECS. (docker run, exec, cp, logs, stop)"
+    test: |
+      system "#{bin}/ecsk -v"
