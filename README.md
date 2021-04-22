@@ -16,8 +16,7 @@ It specializes in handling a single container (task) like docker command, not an
 ### MacOS
 
 ```sh
-brew tap yukiarrr/ecsk
-brew install ecsk
+brew install yukiarrr/tap/ecsk
 ```
 
 ### Linux

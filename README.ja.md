@@ -16,8 +16,7 @@ ecskは、**Amazon ECS**でdockerコマンドでよく使う機能をインタ�
 ### MacOS
 
 ```sh
-brew tap yukiarrr/ecsk
-brew install ecsk
+brew install yukiarrr/tap/ecsk
 ```
 
 ### Linux
