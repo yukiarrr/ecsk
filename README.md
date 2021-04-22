@@ -28,12 +28,6 @@ chmod +x ./ecsk
 sudo mv ./ecsk /usr/local/bin/ecsk
 ```
 
-### Other
-
-```sh
-go get -u github.com/yukiarrr/ecsk/cmd/ecsk
-```
-
 ## Usage
 
 Here are some frequently used commands.  
