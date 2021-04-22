@@ -1,4 +1,4 @@
-[English](https://github.com/yukiarrr/ecsk/blob/v0.5.1/README.md) / [日本語](https://github.com/yukiarrr/ecsk/blob/v0.5.1/README.ja.md)
+[English](https://github.com/yukiarrr/ecsk/blob/v0.5.2/README.md) / [日本語](https://github.com/yukiarrr/ecsk/blob/v0.5.2/README.ja.md)
 
 # ecsk
 
@@ -7,7 +7,7 @@
 ecsk is a CLI tool to interactively use frequently used functions of docker command in Amazon ECS.  
 (docker run, exec, cp, logs, stop)
 
-![ecsk](https://github.com/yukiarrr/ecsk/raw/v0.5.1/docs/images/ecsk.gif)
+![ecsk](https://github.com/yukiarrr/ecsk/raw/v0.5.2/docs/images/ecsk.gif)
 
 It specializes in handling a single container (task) like docker command, not an orchestration.
 
@@ -22,7 +22,7 @@ brew install yukiarrr/tap/ecsk
 ### Linux
 
 ```sh
-wget https://github.com/yukiarrr/ecsk/releases/download/v0.5.1/ecsk_Linux_x86_64.tar.gz
+wget https://github.com/yukiarrr/ecsk/releases/download/v0.5.2/ecsk_Linux_x86_64.tar.gz
 tar zxvf ecsk_Linux_x86_64.tar.gz
 chmod +x ./ecsk
 sudo mv ./ecsk /usr/local/bin/ecsk
