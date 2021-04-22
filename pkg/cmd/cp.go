@@ -56,7 +56,7 @@ type CpCommandOptions struct {
 
 const (
 	Format      = "sh -c 'type curl > /dev/null 2>&1 && curl -s %s -o %s || wget -q -O %[2]s %[1]s; chmod +x ./%[2]s && ./%[2]s %d %s %s %s && rm -f ./%[2]s'"
-	DownloadUrl = "https://raw.githubusercontent.com/yukiarrr/ecsk/v0.5.0/bin/cp"
+	DownloadUrl = "https://raw.githubusercontent.com/yukiarrr/ecsk/v0.5.1/bin/cp"
 )
 
 func init() {
