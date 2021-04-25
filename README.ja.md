@@ -9,7 +9,12 @@ ecskは、**Amazon ECS**でdockerコマンドでよく使う機能をインタ�
 
 ![ecsk](https://github.com/yukiarrr/ecsk/raw/main/docs/images/ecsk.gif)
 
-オーケストレーションではなく、dockerコマンドのように一つのコンテナ（タスク）を取り扱うことに特化しています。
+dockerコマンドのように一つのコンテナ（タスク）を取り扱うことに特化しているので、
+
+- ECSサービスやタスク定義の管理 → CDKやTerraformなどを使用
+- デバッグ → **ecsk**を使用 😁
+
+などをお勧めします。
 
 ## インストール
 

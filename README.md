@@ -9,7 +9,12 @@ ecsk is a CLI tool to interactively use frequently used functions of docker comm
 
 ![ecsk](https://github.com/yukiarrr/ecsk/raw/main/docs/images/ecsk.gif)
 
-It specializes in handling a single container (task) like docker command, not an orchestration.
+Since esck specializes in operating containers (tasks), like docker command,
+
+- "Management of ECS services and task definitions" -> CDK, Terraform, etc
+- "Debugging" -> ecsk 😁
+
+For example, I recommend the above.
 
 ## Install
 
