@@ -161,11 +161,10 @@ Since ecsk uses S3 Bucket for file transfer, you need to add permissions for the
         {
             "Effect": "Allow",
             "Action": [
-                "s3:PutObject",
-                "s3:PutObjectAcl",
-                "s3:GetObject",
                 "s3:ListBucket",
-                "s3:DeleteObject"
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
             ],
             "Resource": [
                 "arn:aws:s3:::[bucket_name]",
