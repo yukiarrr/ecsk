@@ -2,7 +2,7 @@
 
 # ecsk
 
-<u>**EC**</u>S + Ta<u>**sk**</u> = **ecsk** 😆
+**EC**S + Ta**sk** = **ecsk** 😆
 
 ecskは、**Amazon ECS**でdockerコマンドでよく使う機能をインタラクティブに使えるようにしたCLIツールです。  
 （docker run, exec, cp, logs, stop）

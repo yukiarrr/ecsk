@@ -2,7 +2,7 @@
 
 # ecsk
 
-<u>**EC**</u>S + Ta<u>**sk**</u> = **ecsk** 😆
+**EC**S + Ta**sk** = **ecsk** 😆
 
 ecsk is a CLI tool to interactively use frequently used functions of docker command in Amazon ECS.  
 (docker run, exec, cp, logs, stop)
