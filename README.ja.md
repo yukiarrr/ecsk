@@ -1,4 +1,4 @@
-[English](https://github.com/yukiarrr/ecsk/blob/v0.5.3/README.md) / [日本語](https://github.com/yukiarrr/ecsk/blob/v0.5.3/README.ja.md)
+[English](https://github.com/yukiarrr/ecsk/blob/main/README.md) / [日本語](https://github.com/yukiarrr/ecsk/blob/main/README.ja.md)
 
 # ecsk
 
@@ -7,7 +7,7 @@
 ecskは、**Amazon ECS**でdockerコマンドでよく使う機能をインタラクティブに使えるようにしたCLIツールです。  
 （docker run, exec, cp, logs, stop）
 
-![ecsk](https://github.com/yukiarrr/ecsk/raw/v0.5.3/docs/images/ecsk.gif)
+![ecsk](https://github.com/yukiarrr/ecsk/raw/main/docs/images/ecsk.gif)
 
 オーケストレーションではなく、dockerコマンドのように一つのコンテナ（タスク）を取り扱うことに特化しています。
 
