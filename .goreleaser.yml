@@ -8,7 +8,7 @@ builds:
     env:
       - CGO_ENABLED=0
     ldflags:
-      - -s -w -X github.com/yukiarrr/ecsk/pkg/cmd.Version={{.Version}} -X github.com/yukiarrr/ecsk/pkg/cmd.Revision={{.ShortCommit}}
+      - -s -w -X github.com/yukiarrr/ecsk/pkg/cmd.Version=v{{.Version}}
 archives:
   - name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     replacements:

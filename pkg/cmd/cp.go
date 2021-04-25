@@ -54,10 +54,9 @@ type CpCommandOptions struct {
 	Profile    string
 }
 
-const (
-	Format      = "sh -c 'type curl > /dev/null 2>&1 && curl -s %s -o %s || wget -q -O %[2]s %[1]s; chmod +x ./%[2]s && ./%[2]s %d %s %s %s && rm -f ./%[2]s'"
-	DownloadUrl = "https://raw.githubusercontent.com/yukiarrr/ecsk/v0.5.3/bin/cp"
-)
+const Format = "sh -c 'type curl > /dev/null 2>&1 && curl -s %s -o %s || wget -q -O %[2]s %[1]s; chmod +x ./%[2]s && ./%[2]s %d %s %s %s && rm -f ./%[2]s'"
+
+var DownloadUrl = fmt.Sprintf("https://raw.githubusercontent.com/yukiarrr/ecsk/%s/bin/cp", Version)
 
 func init() {
 	var opts CpCommandOptions

@@ -28,10 +28,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	Version  = "unset"
-	Revision = "unset"
-)
+var Version string
 
 var rootCmd = &cobra.Command{
 	Use:   "ecsk",
