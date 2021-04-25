@@ -60,7 +60,7 @@ ecsk run -d
 
 ### `ecsk exec`
 
-```
+```sh
 ecsk exec -i -- /bin/sh
 ```
 
@@ -68,7 +68,7 @@ ecsk exec -i -- /bin/sh
 
 ### `ecsk cp`
 
-```
+```sh
 ecsk cp ./ [container_name]:/etc/nginx/
 ```
 
@@ -79,7 +79,7 @@ ecsk cp ./ [container_name]:/etc/nginx/
 <br>
 <br>
 
-```
+```sh
 ecsk cp [container_name]:/var/log/nginx/access.log ./
 ```
 
@@ -87,7 +87,7 @@ ecsk cp [container_name]:/var/log/nginx/access.log ./
 
 ### `ecsk logs`
 
-```
+```sh
 ecsk logs
 ```
 
@@ -98,7 +98,7 @@ ecsk logs
 
 ### `ecsk stop`
 
-```
+```sh
 ecsk stop
 ```
 

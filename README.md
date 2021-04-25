@@ -60,7 +60,7 @@ After entering the task information interactively, the command will be stopped w
 
 ### `ecsk exec`
 
-```
+```sh
 ecsk exec -i -- /bin/sh
 ```
 
@@ -68,7 +68,7 @@ After selecting the task and container interactively, and execute the command.
 
 ### `ecsk cp`
 
-```
+```sh
 ecsk cp ./ [container_name]:/etc/nginx/
 ```
 
@@ -79,7 +79,7 @@ If you want to select the container interactively, use `ecsk cp . / :/etc/nginx/
 <br>
 <br>
 
-```
+```sh
 ecsk cp [container_name]:/var/log/nginx/access.log ./
 ```
 
@@ -87,7 +87,7 @@ Transfer files from remote to local.
 
 ### `ecsk logs`
 
-```
+```sh
 ecsk logs
 ```
 
@@ -98,7 +98,7 @@ ecsk uses [knqyf263/utern](https://github.com/knqyf263/utern) to view logs.
 
 ### `ecsk stop`
 
-```
+```sh
 ecsk stop
 ```
 
