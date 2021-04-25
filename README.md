@@ -12,7 +12,7 @@ ecsk is a CLI tool to interactively use frequently used functions of docker comm
 Since esck specializes in operating containers (tasks), like docker command,
 
 - "Management of ECS services and task definitions" -> CDK, Terraform, etc
-- "Debugging" -> ecsk 😁
+- "Debugging" -> **ecsk** 😁
 
 For example, I recommend the above.
 
