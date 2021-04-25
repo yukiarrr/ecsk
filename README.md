@@ -27,7 +27,7 @@ brew install yukiarrr/tap/ecsk
 ### Linux
 
 ```sh
-wget https://github.com/yukiarrr/ecsk/releases/download/v0.5.3/ecsk_Linux_x86_64.tar.gz
+wget https://github.com/yukiarrr/ecsk/releases/download/v0.5.4/ecsk_Linux_x86_64.tar.gz
 tar zxvf ecsk_Linux_x86_64.tar.gz
 chmod +x ./ecsk
 sudo mv ./ecsk /usr/local/bin/ecsk
