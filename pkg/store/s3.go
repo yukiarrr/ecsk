@@ -33,15 +33,7 @@ func Upload(ctx context.Context, s3Client *s3.Client, bucket string, key string,
 			return err
 		}
 		if rel == "." {
-			cwd, err := os.Getwd()
-			if err != nil {
-				return err
-			}
-
-			rel, err = filepath.Rel(cwd, path)
-			if err != nil {
-				return err
-			}
+			rel = filepath.Base(path)
 		}
 
 		k := filepath.ToSlash(filepath.Join(key, rel))
