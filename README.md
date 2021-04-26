@@ -4,17 +4,16 @@
 
 **EC**S + Ta**sk** = **ecsk** 😆
 
-ecsk is a CLI tool to interactively use frequently used functions of docker command in Amazon ECS.  
-(docker run, exec, cp, logs, stop)
+ecsk is a CLI tool that you can interactively call Amazon ECS APIs (run-task, execute-command, stop-task), copy files between ECS and local, and view logs.
 
 ![ecsk](https://github.com/yukiarrr/ecsk/raw/main/docs/images/ecsk.gif)
 
-Since esck specializes in operating containers (tasks), like docker command,
+Since esck specializes in operating containers (tasks),
 
-- "Management of ECS services and task definitions" -> CDK, Terraform, etc
-- "Debugging" -> **ecsk** 😁
+- Management of ECS services and task definitions -> CDK, Terraform, etc
+- Debugging -> **ecsk** 😁
 
-For example, I recommend the above.
+The above use is assumed.
 
 ## Install
 

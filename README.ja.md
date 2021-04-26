@@ -4,17 +4,16 @@
 
 **EC**S + Ta**sk** = **ecsk** 😆
 
-ecskは、**Amazon ECS**でdockerコマンドでよく使う機能をインタラクティブに使えるようにしたCLIツールです。  
-（docker run, exec, cp, logs, stop）
+ecskは、インタラクティブにAmazon ECS API（run-task, execute-command, stop-task）を呼び出したり、ECSとローカルの間でファイルをコピーしたり、ログを表示したりできるCLIツールです。
 
 ![ecsk](https://github.com/yukiarrr/ecsk/raw/main/docs/images/ecsk.gif)
 
-dockerコマンドのように一つのコンテナ（タスク）を取り扱うことに特化しているので、
+ecskはコンテナ（タスク）を取り扱うことに特化しているので、
 
 - ECSサービスやタスク定義の管理 → CDKやTerraformなどを使用
 - デバッグ → **ecsk**を使用 😁
 
-などをお勧めします。
+などの利用を想定しています。
 
 ## インストール
 
