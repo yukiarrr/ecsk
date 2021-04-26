@@ -83,7 +83,7 @@ func Download(ctx context.Context, s3Client *s3.Client, bucket string, key strin
 	for _, c := range result.Contents {
 		path := filepath.Join(dst, filepath.FromSlash(strings.Replace(*c.Key, key, "", 1)))
 		_ = os.MkdirAll(filepath.Dir(path), 0755)
-		file, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0644)
+		file, err := os.Create(path)
 		if err != nil {
 			return nil, err
 		}
