@@ -112,6 +112,15 @@ ecsk stop
 
 After selecting the task interactively, stop.
 
+### `ecsk describe`
+
+```sh
+ecsk describe
+```
+
+After selecting the tasks interactively, view detailed information.
+You can also use it to check a task list.
+
 ## Prerequisites
 
 ### When using `ecsk exec`

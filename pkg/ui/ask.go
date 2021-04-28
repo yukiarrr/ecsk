@@ -293,7 +293,7 @@ func AskTask(ctx context.Context, ecsClient *ecs.Client, cluster string, addBack
 	var taskIds []string
 	for _, t := range tasks {
 		taskId := path.Base(*t.TaskArn)
-		fmt.Fprintf(w, "%s\t %s\t %s\n", taskId, path.Base(*t.TaskDefinitionArn), t.CreatedAt)
+		fmt.Fprintf(w, "%s\t %s\t %s\t %s\t %s\n", taskId, path.Base(*t.TaskDefinitionArn), *t.LastStatus, t.CreatedAt, *t.Group)
 		taskIds = append(taskIds, taskId)
 	}
 	w.Flush()
@@ -362,7 +362,7 @@ func AskTasks(ctx context.Context, ecsClient *ecs.Client, cluster string) ([]str
 	var taskIds []string
 	for _, t := range describeTasks {
 		taskId := path.Base(*t.TaskArn)
-		fmt.Fprintf(w, "%s\t %s\t %s\n", taskId, path.Base(*t.TaskDefinitionArn), t.CreatedAt)
+		fmt.Fprintf(w, "%s\t %s\t %s\t %s\t %s\n", taskId, path.Base(*t.TaskDefinitionArn), *t.LastStatus, t.CreatedAt, *t.Group)
 		taskIds = append(taskIds, taskId)
 	}
 	w.Flush()
