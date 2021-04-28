@@ -7,6 +7,10 @@ builds:
   - main: ./cmd/ecsk
     env:
       - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
     ldflags:
       - -s -w -X github.com/yukiarrr/ecsk/pkg/cmd.Version=v{{.Version}}
 archives:
