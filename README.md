@@ -118,7 +118,7 @@ After selecting the task interactively, stop.
 ecsk describe
 ```
 
-After selecting the tasks interactively, view detailed information.
+After selecting the tasks interactively, view detailed information.  
 You can also use it to check a task list.
 
 ## Prerequisites
