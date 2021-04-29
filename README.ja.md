@@ -32,6 +32,10 @@ chmod +x ./ecsk
 sudo mv ./ecsk /usr/local/bin/ecsk
 ```
 
+### Windows
+
+[Releases](https://github.com/yukiarrr/ecsk/releases)からダウンロードしてください。
+
 ## 使い方
 
 ここでは、よく使うコマンドを紹介します。  
