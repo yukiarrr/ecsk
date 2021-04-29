@@ -141,7 +141,7 @@ func AskVpc(ctx context.Context, ec2Client *ec2.Client, addBack bool) (string, e
 	w := tabwriter.NewWriter(&b, 0, 0, 1, ' ', tabwriter.Debug)
 	var vpcIds []string
 	for _, v := range result.Vpcs {
-		fmt.Fprintf(w, "%s\t %s\t %s\n", *v.VpcId, *v.CidrBlock, getTagName(v.Tags))
+		fmt.Fprintf(w, "%s\t %s\t %s\n", *v.VpcId, *v.CidrBlock, truncate(getTagName(v.Tags)))
 		vpcIds = append(vpcIds, *v.VpcId)
 	}
 	w.Flush()
@@ -183,7 +183,7 @@ func AskSubnets(ctx context.Context, ec2Client *ec2.Client, vpc string) ([]strin
 	w := tabwriter.NewWriter(&b, 0, 0, 1, ' ', tabwriter.Debug)
 	var subnetIds []string
 	for _, s := range result.Subnets {
-		fmt.Fprintf(w, "%s\t %s\t %s\n", *s.SubnetId, *s.CidrBlock, getTagName(s.Tags))
+		fmt.Fprintf(w, "%s\t %s\t %s\n", *s.SubnetId, *s.CidrBlock, truncate(getTagName(s.Tags)))
 		subnetIds = append(subnetIds, *s.SubnetId)
 	}
 	w.Flush()
@@ -225,7 +225,7 @@ func AskSecurityGroups(ctx context.Context, ec2Client *ec2.Client, vpc string) (
 	w := tabwriter.NewWriter(&b, 0, 0, 1, ' ', tabwriter.Debug)
 	var securityGroupIds []string
 	for _, s := range result.SecurityGroups {
-		fmt.Fprintf(w, "%s\t %s\t %s\n", *s.GroupId, *s.GroupName, getTagName(s.Tags))
+		fmt.Fprintf(w, "%s\t %s\t %s\t %s\n", *s.GroupId, truncate(*s.GroupName), truncate(*s.Description), truncate(getTagName(s.Tags)))
 		securityGroupIds = append(securityGroupIds, *s.GroupId)
 	}
 	w.Flush()
@@ -293,7 +293,7 @@ func AskTask(ctx context.Context, ecsClient *ecs.Client, cluster string, addBack
 	var taskIds []string
 	for _, t := range tasks {
 		taskId := path.Base(*t.TaskArn)
-		fmt.Fprintf(w, "%s\t %s\t %s\t %s\t %s\n", taskId, path.Base(*t.TaskDefinitionArn), *t.LastStatus, t.CreatedAt, *t.Group)
+		fmt.Fprintf(w, "%s\t %s\t %s\t %s\t %s\n", taskId, truncate(path.Base(*t.TaskDefinitionArn)), *t.LastStatus, t.CreatedAt.Format("2006/1/2 15:04:05"), truncate(*t.Group))
 		taskIds = append(taskIds, taskId)
 	}
 	w.Flush()
@@ -362,7 +362,7 @@ func AskTasks(ctx context.Context, ecsClient *ecs.Client, cluster string) ([]str
 	var taskIds []string
 	for _, t := range describeTasks {
 		taskId := path.Base(*t.TaskArn)
-		fmt.Fprintf(w, "%s\t %s\t %s\t %s\t %s\n", taskId, path.Base(*t.TaskDefinitionArn), *t.LastStatus, t.CreatedAt, *t.Group)
+		fmt.Fprintf(w, "%s\t %s\t %s\t %s\t %s\n", taskId, truncate(path.Base(*t.TaskDefinitionArn)), *t.LastStatus, t.CreatedAt.Format("2006/1/2 15:04:05"), truncate(*t.Group))
 		taskIds = append(taskIds, taskId)
 	}
 	w.Flush()
@@ -491,4 +491,12 @@ func getTagName(tags []ec2types.Tag) string {
 		}
 	}
 	return "-"
+}
+
+func truncate(text string) string {
+	const max = 35
+	if len(text) > max {
+		return text[:max] + "..."
+	}
+	return text
 }
