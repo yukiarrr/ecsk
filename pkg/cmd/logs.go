@@ -180,21 +180,24 @@ func startLogs(ctx context.Context, ecsClient *ecs.Client, opts LogsCommandOptio
 			return err
 		}
 
-		for j, c := range describeTaskDefinitionResult.TaskDefinition.ContainerDefinitions {
+		for _, c := range describeTaskDefinitionResult.TaskDefinition.ContainerDefinitions {
 			if c.LogConfiguration == nil {
 				continue
 			}
-			groupFilter = groupFilter + regexp.QuoteMeta(c.LogConfiguration.Options["awslogs-stream-prefix"])
-			if j < len(describeTaskDefinitionResult.TaskDefinition.ContainerDefinitions)-1 {
+
+			g := regexp.QuoteMeta(c.LogConfiguration.Options["awslogs-group"])
+			if g == "" {
+				continue
+			}
+
+			if groupFilter != "" {
 				groupFilter = groupFilter + "|"
 			}
+			groupFilter = groupFilter + g
 		}
 
 		streamFilter = streamFilter + path.Base(*t.TaskArn)
 		if i < len(describeTaskResult.Tasks)-1 {
-			if groupFilter != "" {
-				groupFilter = groupFilter + "|"
-			}
 			streamFilter = streamFilter + "|"
 		}
 	}
