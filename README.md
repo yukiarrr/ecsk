@@ -83,7 +83,7 @@ ecsk cp ./ [container_name]:/etc/nginx/
 After selecting the task interactively, copy the files from local to remote.  
 Internally, using an S3 Bucket to transfer the files, [so you need to add permissions for the corresponding Bucket to the task role.](#When-using-ecsk-cp)
 
-If you want to select the container interactively, use `ecsk cp . / :/etc/nginx/`.
+If you want to select the container interactively, use `ecsk cp ./ :/etc/nginx/`.
 <br>
 <br>
 
