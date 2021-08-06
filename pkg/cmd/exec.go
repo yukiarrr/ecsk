@@ -230,7 +230,7 @@ func startExec(ctx context.Context, ecsClient *ecs.Client, opts ExecCommandOptio
 
 	var runtimeId string
 	for _, c := range describeResult.Tasks[0].Containers {
-		if c.Name != &opts.Cluster {
+		if aws.StringValue(c.Name) != opts.Container {
 			continue
 		}
 		runtimeId = *c.RuntimeId
@@ -257,7 +257,7 @@ func startExec(ctx context.Context, ecsClient *ecs.Client, opts ExecCommandOptio
 	}()
 	defer close(done)
 
-	err = util.ExecCommand(opts.Plugin, string(sess), opts.Region, "StartSession", opts.Profile, string(target), opts.Region)
+	err = util.ExecCommand(opts.Plugin, string(sess), opts.Region, "StartSession", opts.Profile, string(target), fmt.Sprintf("https://ecs.%s.amazonaws.com", opts.Region))
 	if err != nil {
 		return err
 	}
