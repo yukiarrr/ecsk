@@ -134,7 +134,7 @@ Please refer to the following.
 
 https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html
 
-#### Prmissions required for ECS Exec
+#### Permissions required for ECS Exec
 
 The ECS Exec feature requires a task IAM role to grant containers the permissions needed for communication between the managed SSM agent (execute-command agent) and the SSM service.
 
