@@ -58,6 +58,7 @@ type CpCommandOptions struct {
 const Format = "sh -c 'type curl > /dev/null 2>&1 && curl -s %s -o %s || wget -q -O %[2]s %[1]s; chmod +x ./%[2]s && ./%[2]s %d %s %s %s && rm -f ./%[2]s'"
 
 var DownloadUrl = fmt.Sprintf("https://raw.githubusercontent.com/yukiarrr/ecsk/%s/bin/cp", Version)
+var DownloadUrlForArm64 = fmt.Sprintf("https://raw.githubusercontent.com/yukiarrr/ecsk/%s/bin/cp_arm64", Version)
 
 func init() {
 	var opts CpCommandOptions
@@ -240,6 +241,11 @@ func startCp(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, op
 
 	var keys []string
 
+	var url = DownloadUrl
+	if opts.Arm64 {
+		url = DownloadUrlForArm64
+	}
+
 	if opts.FromLocal {
 		var err error
 		keys, err = store.Upload(ctx, s3Client, opts.Bucket, key, opts.Src)
@@ -254,7 +260,7 @@ func startCp(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, op
 			Interactive:        true,
 			Plugin:             opts.Plugin,
 			EnableErrorChecker: false,
-			Command:            fmt.Sprintf(Format, DownloadUrl, key, 1, opts.Bucket, key, filepath.ToSlash(opts.Dst)),
+			Command:            fmt.Sprintf(Format, url, key, 1, opts.Bucket, key, filepath.ToSlash(opts.Dst)),
 			Region:             opts.Region,
 			Profile:            opts.Profile,
 		})
@@ -269,7 +275,7 @@ func startCp(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, op
 			Interactive:        true,
 			Plugin:             opts.Plugin,
 			EnableErrorChecker: false,
-			Command:            fmt.Sprintf(Format, DownloadUrl, key, 0, opts.Bucket, key, filepath.ToSlash(opts.Src)),
+			Command:            fmt.Sprintf(Format, url, key, 0, opts.Bucket, key, filepath.ToSlash(opts.Src)),
 			Region:             opts.Region,
 			Profile:            opts.Profile,
 		})
