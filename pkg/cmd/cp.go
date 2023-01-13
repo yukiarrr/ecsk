@@ -52,6 +52,7 @@ type CpCommandOptions struct {
 	Command    string
 	Region     string
 	Profile    string
+	Arm64      bool
 }
 
 const Format = "sh -c 'type curl > /dev/null 2>&1 && curl -s %s -o %s || wget -q -O %[2]s %[1]s; chmod +x ./%[2]s && ./%[2]s %d %s %s %s && rm -f ./%[2]s'"
@@ -155,6 +156,7 @@ Transfer files from remote to local.`,
 	cpCmd.Flags().StringVar(&opts.Container, "container", "", "The name of the container to copy files.")
 	cpCmd.Flags().StringVar(&opts.Bucket, "bucket", "", "The bucket to use for file transfer.")
 	cpCmd.Flags().StringVar(&opts.Plugin, "plugin", "session-manager-plugin", "Path of session-manager-plugin.")
+	cpCmd.Flags().BoolVar(&opts.Arm64, "arm64", false, "Container CPU is ARM64.")
 }
 
 func nextCpState(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, state int, opts CpCommandOptions) error {
