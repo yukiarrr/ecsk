@@ -31,6 +31,7 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/ecs"
+	ecsTypes "github.com/aws/aws-sdk-go-v2/service/ecs/types"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/spf13/cobra"
@@ -240,9 +241,13 @@ func startCp(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, op
 	key := "ecsk_" + t.Format("20060102150405")
 
 	var keys []string
-
 	var url = DownloadUrl
-	if opts.Arm64 {
+
+	var f, err = isArm64Architecture(ctx, ecsClient, opts)
+	if err != nil {
+		return err
+	}
+	if f {
 		url = DownloadUrlForArm64
 	}
 
@@ -317,4 +322,30 @@ func startCp(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, op
 	}
 
 	return nil
+}
+
+func isArm64Architecture(ctx context.Context, ecsClient *ecs.Client, opts CpCommandOptions) (bool, error) {
+	var tasks = []string{opts.Task}
+	result, err := ecsClient.DescribeTasks(ctx, &ecs.DescribeTasksInput{
+		Cluster: &opts.Cluster,
+		Tasks:   tasks,
+	})
+	if err != nil {
+		return false, err
+	}
+	if len(result.Failures) > 0 {
+		return false, fmt.Errorf("%v", result.Failures)
+	}
+
+	var a = findCpuArchitectureAttribute(result.Tasks[0].Attributes)
+	return a == "arm64", nil
+}
+
+func findCpuArchitectureAttribute(attrs []ecsTypes.Attribute) string {
+	for _, a := range attrs {
+		if *a.Name == "ecs.cpu-architecture" {
+			return *a.Value
+		}
+	}
+	return ""
 }
