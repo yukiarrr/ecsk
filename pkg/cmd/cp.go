@@ -335,11 +335,11 @@ func isArm64Architecture(ctx context.Context, ecsClient *ecs.Client, opts CpComm
 		return false, fmt.Errorf("%v", result.Failures)
 	}
 
-	var a = findCpuArchitectureAttribute(result.Tasks[0].Attributes)
-	return a == "arm64", nil
+	var n = findCpuArchitectureName(result.Tasks[0].Attributes)
+	return n == "arm64", nil
 }
 
-func findCpuArchitectureAttribute(attrs []ecsTypes.Attribute) string {
+func findCpuArchitectureName(attrs []ecsTypes.Attribute) string {
 	for _, a := range attrs {
 		if *a.Name == "ecs.cpu-architecture" {
 			return *a.Value
