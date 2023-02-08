@@ -31,6 +31,7 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/ecs"
+	ecsTypes "github.com/aws/aws-sdk-go-v2/service/ecs/types"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/spf13/cobra"
@@ -57,6 +58,7 @@ type CpCommandOptions struct {
 const Format = "sh -c 'type curl > /dev/null 2>&1 && curl -s %s -o %s || wget -q -O %[2]s %[1]s; chmod +x ./%[2]s && ./%[2]s %d %s %s %s && rm -f ./%[2]s'"
 
 var DownloadUrl = fmt.Sprintf("https://raw.githubusercontent.com/yukiarrr/ecsk/%s/bin/cp", Version)
+var DownloadUrlForArm64 = fmt.Sprintf("https://raw.githubusercontent.com/yukiarrr/ecsk/%s/bin/cp_arm64", Version)
 
 func init() {
 	var opts CpCommandOptions
@@ -237,6 +239,15 @@ func startCp(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, op
 	key := "ecsk_" + t.Format("20060102150405")
 
 	var keys []string
+	var url = DownloadUrl
+
+	var f, err = isArm64Architecture(ctx, ecsClient, opts)
+	if err != nil {
+		return err
+	}
+	if f {
+		url = DownloadUrlForArm64
+	}
 
 	if opts.FromLocal {
 		var err error
@@ -252,7 +263,7 @@ func startCp(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, op
 			Interactive:        true,
 			Plugin:             opts.Plugin,
 			EnableErrorChecker: false,
-			Command:            fmt.Sprintf(Format, DownloadUrl, key, 1, opts.Bucket, key, filepath.ToSlash(opts.Dst)),
+			Command:            fmt.Sprintf(Format, url, key, 1, opts.Bucket, key, filepath.ToSlash(opts.Dst)),
 			Region:             opts.Region,
 			Profile:            opts.Profile,
 		})
@@ -267,7 +278,7 @@ func startCp(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, op
 			Interactive:        true,
 			Plugin:             opts.Plugin,
 			EnableErrorChecker: false,
-			Command:            fmt.Sprintf(Format, DownloadUrl, key, 0, opts.Bucket, key, filepath.ToSlash(opts.Src)),
+			Command:            fmt.Sprintf(Format, url, key, 0, opts.Bucket, key, filepath.ToSlash(opts.Src)),
 			Region:             opts.Region,
 			Profile:            opts.Profile,
 		})
@@ -309,4 +320,30 @@ func startCp(ctx context.Context, ecsClient *ecs.Client, s3Client *s3.Client, op
 	}
 
 	return nil
+}
+
+func isArm64Architecture(ctx context.Context, ecsClient *ecs.Client, opts CpCommandOptions) (bool, error) {
+	var tasks = []string{opts.Task}
+	result, err := ecsClient.DescribeTasks(ctx, &ecs.DescribeTasksInput{
+		Cluster: &opts.Cluster,
+		Tasks:   tasks,
+	})
+	if err != nil {
+		return false, err
+	}
+	if len(result.Failures) > 0 {
+		return false, fmt.Errorf("%v", result.Failures)
+	}
+
+	var n = findCpuArchitectureName(result.Tasks[0].Attributes)
+	return n == "arm64", nil
+}
+
+func findCpuArchitectureName(attrs []ecsTypes.Attribute) string {
+	for _, a := range attrs {
+		if *a.Name == "ecs.cpu-architecture" {
+			return *a.Value
+		}
+	}
+	return ""
 }
