@@ -60,11 +60,23 @@ func AskLaunchType(ecsClient *ecs.Client, addBack bool) (string, error) {
 }
 
 func AskCluster(ctx context.Context, ecsClient *ecs.Client, addBack bool) (string, error) {
-	result, err := ecsClient.ListClusters(ctx, &ecs.ListClustersInput{})
-	if err != nil {
-		return "", err
+	var clusterArns []string
+	var nextToken *string
+
+	for {
+		result, err := ecsClient.ListClusters(ctx, &ecs.ListClustersInput{NextToken: nextToken})
+		if err != nil {
+			return "", err
+		}
+		clusterArns = append(clusterArns, result.ClusterArns...)
+
+		if result.NextToken == nil {
+			break
+		}
+		nextToken = result.NextToken
 	}
-	if len(result.ClusterArns) == 0 {
+
+	if len(clusterArns) == 0 {
 		return "", errors.New("No Cluster exists.")
 	}
 
@@ -72,7 +84,7 @@ func AskCluster(ctx context.Context, ecsClient *ecs.Client, addBack bool) (strin
 	if addBack {
 		clusterNames = []string{Back}
 	}
-	for _, c := range result.ClusterArns {
+	for _, c := range clusterArns {
 		split := strings.Split(c, "/")
 		clusterNames = append(clusterNames, split[len(split)-1])
 	}
@@ -83,7 +95,7 @@ func AskCluster(ctx context.Context, ecsClient *ecs.Client, addBack bool) (strin
 	}
 
 	var cluster string
-	err = survey.AskOne(prompt, &cluster)
+	err := survey.AskOne(prompt, &cluster)
 	if err != nil {
 		return "", err
 	}
