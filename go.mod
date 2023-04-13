@@ -13,7 +13,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ec2 v1.93.2
 	github.com/aws/aws-sdk-go-v2/service/ecs v1.25.0
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.31.3
-	github.com/aws/aws-sdk-go-v2/service/ssm v1.13.0
+	github.com/aws/aws-sdk-go-v2/service/ssm v1.36.2
 	github.com/briandowns/spinner v1.12.0
 	github.com/fatih/color v1.13.0
 	github.com/knqyf263/utern v0.1.4
