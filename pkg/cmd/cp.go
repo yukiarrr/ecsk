@@ -71,7 +71,7 @@ func init() {
 After selecting the task interactively, copy the files from local to remote.
 Internally, using an S3 Bucket to transfer the files, so you need to add permissions for the corresponding Bucket to the task role.
 
-If you want to select the container interactively, use "ecsk cp . / :/etc/nginx/".
+If you want to select the container interactively, use "ecsk cp ./ :/etc/nginx/".
 
 
 # ecsk cp [container_name]:/var/log/nginx/access.log ./
