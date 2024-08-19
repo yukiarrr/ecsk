@@ -25,11 +25,11 @@ archives:
     - goos: windows
       format: zip
 brews:
-  - tap:
+  - repository:
       owner: yukiarrr
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    folder: Formula
+    directory: Formula
     homepage: "https://github.com/yukiarrr/ecsk"
     description: "ecsk is a CLI tool to interactively use frequently used functions of docker command in Amazon ECS. (docker run, exec, cp, logs, stop)"
     test: |
