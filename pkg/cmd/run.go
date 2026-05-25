@@ -395,7 +395,11 @@ func startRun(ctx context.Context, ecsClient *ecs.Client, opts RunCommandOptions
 				isExecuting = false
 
 				if err != nil {
-					if i < max-1 && strings.Contains(err.Error(), "the execute command agent isn’t running") {
+					errMsg := err.Error()
+					// AWS returns this error with either a curly apostrophe (U+2019) or
+					// an ASCII apostrophe (U+0027) depending on the environment; match both variants.
+					if i < max-1 && (strings.Contains(errMsg, "the execute command agent isn’t running") || // U+2019 curly
+						strings.Contains(errMsg, "the execute command agent isn't running")) { // U+0027 ASCII
 						select {
 						case <-ctx.Done():
 							return
